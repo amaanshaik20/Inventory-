@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3S-Technologies</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid mb-3 pt-3">
+            <a class="navbar-brand" href="/">3S TECHNOLOGIES</a>
+            <a class="navbar-brand" href="/">Home</a>
+            <a class="nav-link active" href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="table_details">
+        <div class="details">
+            <label for="item_details">Item Details</label>
+            <input type="radio" id="yes" name="choose" value="yes"
+                style="height: 20px;width: 20px; vertical-align: middle;" />
+        </div>
+        <div class="details">
+            <label for="inventory">Inventory</label>
+            <input type="radio" id="no" name="choose" value="no"
+                style="height: 20px;width: 20px;  vertical-align: middle;" />
+        </div>
+        <div class="details">
+            <label for="purchase_orders">purchase Orders</label>
+            <input type="radio" id="maybe" name="choose" value="maybe"
+                style="height: 20px;width: 20px; vertical-align: middle;" />
+        </div>
+        <div class="details">
+            <label for="lookup_details">Lookup Details</label>
+            <input type="radio" id="mayb" name="choose" value="maybe"
+                style="height: 20px;width: 20px; vertical-align: middle;" />
+        </div>
+    </div>
+
+    <div class="filters-item_details hidden" id="filters">
+        <div class="box1">
+            <div class="search">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search"><button>Search</button>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="item_id">Item id</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="item_number">Item Number</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="item_description">Item Description</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="enabled_flag">Enabled Flag</label>
+            </div>
+            <!-- <div class="row1">
+            <input type="checkbox">
+            <label for="memory">memory</label>
+            </div>
+            <div class="row1">
+            <input type="checkbox">
+            <label for="disks">disks</label>
+            </div>
+            <div class="row1">
+            <input type="checkbox">
+            <label for="uom">uom</label>
+            </div>
+            <div class="row1">
+            <input type="checkbox">
+            <label for="cpu">cpu</label>
+            </div> -->
+            <button onclick="fetchItemData()" class="button">Display</button>
+        </div>
+        <div>
+            <div id="itemDataContainer" class="matter"></div>
+        </div>
+    </div>
+    <div class="filters-inventory hidden" id="filters">
+        <div class="box1">
+            <div class="search">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search"><button>Search</button>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="inventory_id">Inventory id</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="item_id">Item id</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="quantity">Quantity</label>
+            </div>
+            <button onclick="fetchInventoryData()" class="button">Display</button>
+        </div>
+        <div id="inventoryDataContainer" class="matter"></div>
+
+    </div>
+
+    <div class="filters-Purchase_orders hidden" id="filters">
+        <div class="box1">
+            <div class="search">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search"><button>Search</button>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_id">Order id</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_number">Order Number</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_type">Order Type</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="vendor_name">Vendor Name</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_status">Order Status</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_line_id">Order Line ID</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_header_id">Order Header ID</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_line_number">Order Line Number</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="item_id">Item ID</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="quantity">Quantity</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="unit_price">Unit Price</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="PO_line_status">Order Line Status</label>
+            </div>
+            <button onclick="fetchPurchaseOrdersData()" class="button">Display</button>
+        </div>
+        <div id="purchaseOrdersContainer" class="matter"></div>
+    </div>
+
+    <div class="filters-lookup_details hidden" id="filters">
+        <div class="box1">
+            <div class="search">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search"><button>Search</button>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="lookup_typeid">Lookup Type id</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="lookup_type">Lookup Type</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="enabled_flag">Enabled Flag</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="lookup_value_id">Lookup Value ID</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="lookup_code">Lookup Code</label>
+            </div>
+            <div class="row1">
+                <input type="checkbox" style="height: 20px;width: 20px; vertical-align: middle;">
+                <label for="lookup_value">Lookup Value</label>
+            </div>
+            <!-- <button>Display</button> -->
+            <button onclick="fetchData()" class="button">Display</button>
+        </div>
+        <div id="dataContainer" class="matter"></div>
+    </div>
+
+    <script>
+        function fetchData() {
+            // Use an AJAX request to fetch data from the server
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Update the content of the data container with the fetched data
+                    document.getElementById("dataContainer").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "/get_data", true);
+            xhr.send();
+        }
+        function fetchItemData() {
+            // Use an AJAX request to fetch item data from the server
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Update the content of the data container with the fetched item data
+                    document.getElementById("itemDataContainer").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "/get_item_data", true);
+            xhr.send();
+        }
+
+        function fetchInventoryData() {
+            // Use an AJAX request to fetch inventory data from the server
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Update the content of the data container with the fetched inventory data
+                    document.getElementById("inventoryDataContainer").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "/get_inventory_data", true);
+            xhr.send();
+        }
+
+        function fetchPurchaseOrdersData() {
+            // Use AJAX to fetch Purchase Orders data from the server
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Update the content of the purchaseOrdersContainer with the fetched data
+                    document.getElementById("purchaseOrdersContainer").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "/get_purchase_orders", true);
+            xhr.send();
+        }
+    </script>
+    <script src="/static/index.js"></script>
+</body>
+
+</html>
